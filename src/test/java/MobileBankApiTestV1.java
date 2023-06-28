@@ -1,5 +1,6 @@
 
 
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -20,7 +21,9 @@ class MobileBankApiTestV1 {
                 // Проверки
                 .then()
                 .statusCode(200)
+                .contentType(ContentType.JSON)
                 .body(matchesJsonSchemaInClasspath("accounts.schema.json"))
-                .body("[0].currency", equalTo("RUB"));
+                .body("[0].currency", equalTo("RUB"))
+                .body("[1].currency", equalTo("USD"));
     }
 }
